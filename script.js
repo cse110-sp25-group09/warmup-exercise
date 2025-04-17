@@ -54,12 +54,50 @@
     'queen_of_hearts2.png',
     'queen_of_spades2.png',
     ];
-    const randomIndex = Math.floor(Math.random() * images.length);
-    const randomImage = images[randomIndex];
+    let randomIndex = Math.floor(Math.random() * images.length);
+    let randomImage = images[randomIndex];
     document.getElementById('randomImage').src = folderPath + randomImage;
 
 function shuffleDeck() {
-        const randomIndex = Math.floor(Math.random() * images.length);
-        const randomImage = images[randomIndex];
+        randomIndex = Math.floor(Math.random() * images.length);
+        randomImage = images[randomIndex];
         document.getElementById('randomImage').src = folderPath + randomImage;
       }
+
+let deck = images;
+let hand = [];
+
+function takeCard() {
+        if (deck.length === 0) {
+          alert("No more cards in the deck!");
+          return;
+        }
+        const cardTake = images[randomIndex]
+        const index = images.indexOf(cardTake);
+        if (index !== -1) {
+          deck.splice(index, 1); // Remove the taken card from the deck
+          hand.push(cardTake); // Add the taken card to the hand
+        }
+        document.getElementById('handImage').src = folderPath + cardTake; // Show back of card
+        shuffleDeck(); // Shuffle the deck after taking
+      }
+
+function resetDeck() {
+        let hand = [];
+        let deck = images;
+        
+      }
+
+function discardCard(){
+        if (deck.length === 0) {
+          alert("No cards in hand to discard!");
+          return;
+        }
+        const discardedCard = images[randomIndex];
+        const index = images.indexOf(discardedCard);
+        if (index !== -1) {
+          deck.splice(index, 1); // Remove the discarded card from the deck
+        }
+        document.getElementById('discardedImage').src = folderPath + discardedCard; // Show back of card
+        shuffleDeck(); // Shuffle the deck after discarding
+}

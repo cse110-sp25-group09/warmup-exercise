@@ -10,9 +10,10 @@
 
   <h1>Card Deck</h1>
 
-  <button onclick="shuffleDeck()">Shuffle Cards</button>
-
-
+  <button onclick="shuffleDeck()">Shuffle Cards</button>\
+  <button onclick="resetDeck()">Reset Deck</button>
+  <button onclick="takeCard()">Take</button>
+  <button onclick="discardCard()">Discard</button>
       
   <div class="flip-card">
     <div class="flip-card-inner">
@@ -27,7 +28,21 @@
     </div>
   </div>
 
+  <div class="deck-container">
+    <h2>Deck</h2>
+    <div id="mydeck">
+      <img id="handImage" width="200" />
+    </div>
+    <div id="mydeck"></div>
+  </div>
 
+  <div class="deck-container">
+    <h2>Discarded Cards</h2>
+    <div id="discarded-container">
+      <img id="discardedImage" width="200" />
+    </div>
+    <div id="discarded"></div>
+  </div>
 
   <script src="script.js"></script>
 </body>
