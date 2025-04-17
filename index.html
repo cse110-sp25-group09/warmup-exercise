@@ -2,34 +2,52 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title>Card Deck</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
 
   <h1>Card Deck</h1>
-
   <button onclick="shuffleDeck()">Shuffle Cards</button>
 
+  <div class="cards-container">
 
-      
-  <div class="flip-card">
-    <div class="flip-card-inner">
-      <div class="flip-card-front">
-        
-        <div class="deck-container" id="deck-container">
-            <img id="randomImage" width="200" />
-          </div>        
-      </div>
-      <div class="flip-card-back">
+    <!-- TOP‑LEFT: stack of 4 back‑of‑cards -->
+    <div id="stack-back" class="stack">
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card"></div>
+    </div>
+
+    <!-- CENTER: your existing flip‑card -->
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <!-- You already use this for your draw: -->
+          <div class="deck-container" id="deck-container">
+            <img id="randomImage" alt="Card" width="210" />
+          </div>
+        </div>
+        <div class="flip-card-back"></div>
       </div>
     </div>
+
+    <!-- TOP‑RIGHT: stack of discarded face‑up cards -->
+    <div id="stack-discard" class="stack">
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card"></div>
+    </div>
+
   </div>
 
-
+  <!-- BOTTOM: single face‑up deck card -->
+  <div class="deck-pile">
+    <div class="card"></div>
+  </div>
 
   <script src="script.js"></script>
 </body>
 </html>
-

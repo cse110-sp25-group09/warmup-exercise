@@ -1,47 +1,118 @@
-/* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
+
 .flip-card {
-    background-color: transparent;
-    width: 200px;
-    height: 300px;
-    border: 1px solid #f1f1f1;
-    perspective: 1000px; /* Remove this if you don't want the 3D effect */
-  }
-  
-  /* This container is needed to position the front and back side */
-  .flip-card-inner {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    transition: transform 0.8s;
-    transform-style: preserve-3d;
-  }
-  
-  /* Do an horizontal flip when you move the mouse over the flip box container */
-  .flip-card:hover .flip-card-inner {
-    transform: rotateY(180deg);
-  }
-  
-  /* Position the front and back side */
-  .flip-card-front, .flip-card-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    -webkit-backface-visibility: hidden; /* Safari */
-    backface-visibility: hidden;
-  }
-  
-  /* Style the front side (fallback if image is missing) */
-  .flip-card-front {
-    background-color: #bbb;
-    color: black;
-  }
-  
-  /* Style the back side */
-  .flip-card-back {
-    background-image: url('CARDPNGs/card-backside.png'); /* or .png, .webp, etc. */
-    background-size: cover; /* Make the image cover the entire div */
-    background-position: center; /* Center the image */
-    color: white; /* Optional, in case you have text */
-    transform: rotateY(180deg);
-  }
+  background-color: transparent;
+  width: 200px;
+  height: 300px;
+
+  perspective: 1000px;
+}
+
+/* This container is needed to position the front and back side */
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+/* Flip on hover */
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+/* Front & back positioning */
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+/* Front fallback */
+.flip-card-front {
+  background-color: #bbb;
+  color: black;
+}
+
+/* Back side */
+.flip-card-back {
+  background-image: url('CARDPNGs/card-backside.png');
+  background-size: cover;
+  background-position: center;
+  color: white;
+  transform: rotateY(180deg);
+}
+
+/* ============================
+   NEW: PAGE LAYOUT
+   ============================ */
+body {
+  font-family: sans-serif;
+  padding: 20px;
+  text-align: center;
+}
+
+.cards-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 60px;
+}
+
+/* ============================
+   NEW: STACKS (TOP‑LEFT & TOP‑RIGHT)
+   ============================ */
+.stack {
+  position: relative;
+  width: 200px;
+  height: 300px;
+}
+.stack .card {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+
+/* TOP‑LEFT: 4 × back‑of‑card */
+#stack-back .card {
+  background-image: url('CARDPNGs/card-backside.png');
+}
+#stack-back .card:nth-child(1) { left:   0;  z-index: 1; }
+#stack-back .card:nth-child(2) { left:  15px; z-index: 2; }
+#stack-back .card:nth-child(3) { left:  30px; z-index: 3; }
+#stack-back .card:nth-child(4) { left:  45px; z-index: 4; }
+
+/* TOP‑RIGHT: discarded face‑up stack */
+#stack-discard .card {
+  background-image: url('CardPNGs/2_of_clubs.png');
+}
+#stack-discard .card:nth-child(1) { left:   0;  z-index: 1; }
+#stack-discard .card:nth-child(2) { left:  15px; z-index: 2; }
+#stack-discard .card:nth-child(3) { left:  30px; z-index: 3; }
+
+/* ============================
+   NEW: BOTTOM DECK‑PILE
+   ============================ */
+.deck-pile {
+  position: relative;
+  width: 200px;
+  height: 300px;
+  margin: 0 auto;
+}
+.deck-pile .card {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: url('CardPNGs/2_of_clubs.png');
+  background-size: cover;
+  background-position: center;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
