@@ -54,26 +54,32 @@
     'queen_of_hearts2.png',
     'queen_of_spades2.png',
     ];
-    let randomIndex = Math.floor(Math.random() * images.length);
-    let randomImage = images[randomIndex];
-    document.getElementById('randomImage').src = folderPath + randomImage;
+  let deck = [...images];
+  let hand = [];
+  let randomIndex = Math.floor(Math.random() * images.length);
+  let randomImage = images[randomIndex];
+  document.getElementById('randomImage').src = folderPath + randomImage;
 
 function shuffleDeck() {
-        randomIndex = Math.floor(Math.random() * images.length);
-        randomImage = images[randomIndex];
+        randomIndex = Math.floor(Math.random() * deck.length);
+        randomImage = deck[randomIndex];
         document.getElementById('randomImage').src = folderPath + randomImage;
       }
 
-let deck = images;
-let hand = [];
+
 
 function takeCard() {
         if (deck.length === 0) {
           alert("No more cards in the deck!");
           return;
         }
-        const cardTake = images[randomIndex]
-        const index = images.indexOf(cardTake);
+        if (deck.length == 1){
+          document.querySelector('.flip-card-front').style.display = 'none';
+          document.querySelector('.flip-card-back').style.display = 'none';
+
+        }
+        const cardTake = deck[randomIndex]
+        const index = deck.indexOf(cardTake);
         if (index !== -1) {
           deck.splice(index, 1); // Remove the taken card from the deck
           hand.push(cardTake); // Add the taken card to the hand
@@ -83,8 +89,14 @@ function takeCard() {
       }
 
 function resetDeck() {
-        let hand = [];
-        let deck = images;
+        hand = [];
+        deck = [...images];
+        document.querySelector('.flip-card-front').style.display = 'block';
+        document.querySelector('.flip-card-back').style.display = 'block';
+        document.getElementById('discardedImage').src = "";
+        document.getElementById('handImage').src = "";
+        shuffleDeck();
+
         
       }
 
@@ -93,8 +105,13 @@ function discardCard(){
           alert("No cards in hand to discard!");
           return;
         }
-        const discardedCard = images[randomIndex];
-        const index = images.indexOf(discardedCard);
+        if (deck.length == 1){
+          document.querySelector('.flip-card-front').style.display = 'none';
+          document.querySelector('.flip-card-back').style.display = 'none';
+
+        }
+        const discardedCard = deck[randomIndex];
+        const index = deck.indexOf(discardedCard);
         if (index !== -1) {
           deck.splice(index, 1); // Remove the discarded card from the deck
         }
