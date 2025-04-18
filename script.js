@@ -59,8 +59,10 @@
   let randomIndex = Math.floor(Math.random() * images.length);
   let randomImage = images[randomIndex];
   document.getElementById('randomImage').src = folderPath + randomImage;
+  const shuffleSound = new Audio('shuffling-cards.mp3');
 
 function shuffleDeck() {
+        shuffleSound.play();
         randomIndex = Math.floor(Math.random() * deck.length);
         randomImage = deck[randomIndex];
         document.getElementById('randomImage').src = folderPath + randomImage;
