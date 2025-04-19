@@ -8,13 +8,18 @@
 </head>
 <body>
 
-  <h1>Card Deck</h1>
+  
   <button onclick="shuffleDeck()">Shuffle Cards</button>
+  <button onclick="takeCard()">Take</button>
+  <button onclick="discardCard()">Discard</button>
+  <button onclick="resetDeck()">Reset Deck</button>
+
 
   <div class="cards-container">
 
     <!-- TOP‑LEFT: stack of 4 back‑of‑cards -->
     <div id="stack-back" class="stack">
+      <h1 style = "color: darkred">Card Deck</h1>
       <div class="card"></div>
       <div class="card"></div>
       <div class="card"></div>
@@ -22,31 +27,37 @@
     </div>
 
     <!-- CENTER: your existing flip‑card -->
-    <div class="flip-card">
+    <div class="flip-card" style = "margin-top:80px;">
       <div class="flip-card-inner">
         <div class="flip-card-front">
           <!-- You already use this for your draw: -->
-          <div class="deck-container" id="deck-container">
-            <img id="randomImage" alt="Card" width="210" />
+          <div class="deck-container" id="deck-container" >
+            <img id="randomImage" alt="Card in hand" class="card-img" />
           </div>
         </div>
         <div class="flip-card-back"></div>
       </div>
     </div>
 
-    <!-- TOP‑RIGHT: stack of discarded face‑up cards -->
-    <div id="stack-discard" class="stack">
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
+    <!-- TOP‑RIGHT: stack of take face‑up cards -->
+    <div id="stack-discard" class="stack" style="margin-top:70px;">
+      <img id="image" src='CardPNGs/card-backside.png' style="width: 240px;" class="card-img"/>
     </div>
 
   </div>
 
   <!-- BOTTOM: single face‑up deck card -->
-  <div class="deck-pile">
-    <div class="card"></div>
+  <div class="deck-pile" >
+    <div class="deck-container">
+      <h2>Discarded Cards</h2>
+      <div id="discarded-container">
+        <img id="discardedImage" src='CardPNGs/card-backside.png' alt="Discarded Card" class="card-img" />
+      </div>
+      <div id="discarded"></div>
+    </div>
   </div>
+
+
 
   <script src="script.js"></script>
 </body>

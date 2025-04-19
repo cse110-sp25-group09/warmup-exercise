@@ -71,36 +71,64 @@ function shuffleDeck() {
 
 
 
-function takeCard() {
+  function takeCard() {
     if (deck.length === 0) {
       alert("No more cards in the deck!");
       return;
     }
-    if (deck.length == 1){
+  
+    if (deck.length == 1) {
       document.querySelector('.flip-card-front').style.display = 'none';
       document.querySelector('.flip-card-back').style.display = 'none';
-
     }
-    const cardTake = deck[randomIndex]
+  
+    const cardTake = deck[randomIndex];
     const index = deck.indexOf(cardTake);
     if (index !== -1) {
       deck.splice(index, 1); // Remove the taken card from the deck
-      hand.push(cardTake); // Add the taken card to the hand
+      hand.push(cardTake);  // Add the taken card to the hand
     }
-    document.getElementById('handImage').src = folderPath + cardTake; // Show back of card
-    shuffleDeck(); // Shuffle the deck after taking
+  
+    // ✅ Create image element
+    const cardImg = document.createElement('img');
+    cardImg.src = folderPath + cardTake;
+    cardImg.classList.add('card-img'); // Your style class for size/appearance
+  
+    // ✅ Apply stacking styles BEFORE appending
+    const cardCount = document.querySelectorAll('#stack-discard img').length;
+    cardImg.style.zIndex = cardCount;
+    cardImg.style.top = `${cardCount * 2}px`;  // Offset down slightly
+    cardImg.style.left = `${cardCount * 20}px`; // Offset right slightly
+    cardImg.style.position = 'absolute';       // Ensure it's stackable
+  
+    // ✅ Append to the discard stack
+    document.getElementById('stack-discard').appendChild(cardImg);
+  
+    // Save reference for discard logic
+    lastTakenCard = cardTake;
+  
+    shuffleDeck(); // Pick a new random card
   }
+  
 
 function resetDeck() {
     hand = [];
     deck = [...images];
     document.querySelector('.flip-card-front').style.display = 'block';
     document.querySelector('.flip-card-back').style.display = 'block';
-    document.getElementById('discardedImage').src = "";
-    document.getElementById('handImage').src = "";
-    shuffleDeck();
+
+
+    document.getElementById('randomImage').src = folderPath + 'card-backside.png';
+    document.getElementById('discardedImage').src = folderPath + 'card-backside.png';
 
     
+    const discardStack = document.getElementById('stack-discard');
+    discardStack.innerHTML = ""; // Removes all <img> from the stack
+
+    
+ 
+    shuffleDeck();
+
   }
 
 function discardCard(){
@@ -121,3 +149,4 @@ function discardCard(){
     document.getElementById('discardedImage').src = folderPath + discardedCard; // Show back of card
     shuffleDeck(); // Shuffle the deck after discarding
 }
+
