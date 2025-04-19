@@ -93,6 +93,8 @@ body {
 #stack-discard .card {
   background-image: url('CardPNGs/2_of_clubs.png');
 }
+
+
 #stack-discard .card:nth-child(1) { left:   0;  z-index: 1; }
 #stack-discard .card:nth-child(2) { left:  15px; z-index: 2; }
 #stack-discard .card:nth-child(3) { left:  30px; z-index: 3; }
