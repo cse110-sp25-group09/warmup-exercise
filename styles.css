@@ -95,10 +95,34 @@ body {
 }
 
 
-#stack-discard .card:nth-child(1) { left:   0;  z-index: 1; }
-#stack-discard .card:nth-child(2) { left:  15px; z-index: 2; }
-#stack-discard .card:nth-child(3) { left:  30px; z-index: 3; }
+#stack-discard .card:nth-child(1) { left:   0;  z-index: 1; } /*bottom card */
+#stack-discard .card:nth-child(2) { left:  15px; z-index: 2;}
+#stack-discard .card:nth-child(3) { left:  30px; z-index: 3;}
 
+#stack-discard .card:nth-child(2)"shift-discard-sta{
+  animation-name: discard-shift-left;
+  animation-duration:2s;
+  animation-timing-function: ease;
+  animation-fill-mode:forwards;
+}
+
+#stack-discard .card:nth-child(3):shift-discard-stack{
+  animation-name: discard-shift-left;
+  animation-duration:2s;
+  animation-timing-function: ease;
+  animation-fill-mode:forwards;
+
+  
+}
+
+@keyframes discard-shift-left{
+  0%{}
+
+  100%{
+    transform: translateX(-15px);
+    
+  }
+}
 /* ============================
    NEW: BOTTOM DECK‑PILE
    ============================ */

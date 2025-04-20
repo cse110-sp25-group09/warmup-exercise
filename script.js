@@ -122,7 +122,12 @@ function discardCard(){
     shuffleDeck(); // Shuffle the deck after discarding
 }
 
+/*Adding event listener for discard button  */ 
+const discardBtn = document.getElementById('discard'); 
+discardBtn.addEventListener('click', () => discardAnimation());
+
 function discardAnimation(){
-  let discardBtn = document.getElementById('discard'); 
-  discardBtn.addEventListener("onclick");
-}
+  let animated_cards = getElementById('discard-pile')
+  animated_cards.classList.add('shift-discard-stack');
+  }
+
