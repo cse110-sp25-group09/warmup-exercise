@@ -123,11 +123,13 @@ function discardCard(){
 }
 
 /*Adding event listener for discard button  */ 
-const discardBtn = document.getElementById('discard'); 
-discardBtn.addEventListener('click', () => discardAnimation());
+const discardBtn = document.getElementById('discard-button'); 
+discardBtn.addEventListener('click', () => {discardAnimation()});
 
 function discardAnimation(){
-  let animated_cards = getElementById('discard-pile')
-  animated_cards.classList.add('shift-discard-stack');
+  let animated_cards = document.getElementsByClassName('discard-pile')
+  for (const element of animated_cards){
+    element.classList.add('shift-discard-stack');
+  }
   }
 

@@ -99,14 +99,7 @@ body {
 #stack-discard .card:nth-child(2) { left:  15px; z-index: 2;}
 #stack-discard .card:nth-child(3) { left:  30px; z-index: 3;}
 
-#stack-discard .card:nth-child(2)"shift-discard-sta{
-  animation-name: discard-shift-left;
-  animation-duration:2s;
-  animation-timing-function: ease;
-  animation-fill-mode:forwards;
-}
-
-#stack-discard .card:nth-child(3):shift-discard-stack{
+.shift-discard-stack{
   animation-name: discard-shift-left;
   animation-duration:2s;
   animation-timing-function: ease;
