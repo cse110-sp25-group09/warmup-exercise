@@ -55,15 +55,20 @@ const images = [
 'queen_of_hearts2.png',
 'queen_of_spades2.png',
 ];
+const shuffleSound = new Audio('sounds/shuffle.mp3');
+const takeSound = new Audio('sounds/take.mp3');
+const discardSound = new Audio('sounds/discard.mp3');
 let deck = [...images];
 let hand = [];
 let randomIndex = Math.floor(Math.random() * images.length);
 let randomImage = images[randomIndex];
+let silent = false;
 document.getElementById('randomImage').src = folderPath + randomImage;
-const shuffleSound = new Audio('shuffling-cards.mp3');
 
 function shuffleDeck() {
-    shuffleSound.play();
+    if (!silent){     
+      shuffleSound.play();
+    }
     randomIndex = Math.floor(Math.random() * deck.length);
     randomImage = deck[randomIndex];
     document.getElementById('randomImage').src = folderPath + randomImage;
@@ -72,6 +77,7 @@ function shuffleDeck() {
 
 
   function takeCard() {
+    takeSound.play();
     if (deck.length === 0) {
       alert("No more cards in the deck!");
       return;
@@ -106,8 +112,9 @@ function shuffleDeck() {
   
     // Save reference for discard logic
     lastTakenCard = cardTake;
-  
+    silent = true;
     shuffleDeck(); // Pick a new random card
+    silent = false;
   }
   
 
@@ -132,6 +139,7 @@ function resetDeck() {
   }
 
 function discardCard(){
+  discardSound.play();
     if (deck.length === 0) {
       alert("No cards in hand to discard!");
       return;
@@ -147,6 +155,8 @@ function discardCard(){
       deck.splice(index, 1); // Remove the discarded card from the deck
     }
     document.getElementById('discardedImage').src = folderPath + discardedCard; // Show back of card
+    silent = true;
     shuffleDeck(); // Shuffle the deck after discarding
+    silent = false;
 }
 
