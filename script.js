@@ -159,7 +159,10 @@ function resetDeck() {
 }
 
 function discardCard() {
+
   discardSound.play();
+  triggerShuffleAnimation();
+
   if (deck.length === 0) {
     alert("No cards in hand to discard!");
     return;
