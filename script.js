@@ -54,13 +54,17 @@ const images = [
 'queen_of_hearts2.png',
 'queen_of_spades2.png',
 ];
+const shuffleSound = new Audio('sounds/shuffle.mp3');
+const takeSound = new Audio('sounds/take.mp3');
+const discardSound = new Audio('sounds/discard.mp3');
 let deck = [...images];
 let hand = [];
 let randomIndex = Math.floor(Math.random() * images.length);
 let randomImage = images[randomIndex];
+let silent = false;
 document.getElementById('randomImage').src = folderPath + randomImage;
-const shuffleSound = new Audio('shuffling-cards.mp3');
 
+// Function to trigger the shuffle animation
 function triggerShuffleAnimation() {
   // Add the shuffling class to start animations
   document.querySelector('.cards-container').classList.add('shuffling');
@@ -71,26 +75,32 @@ function triggerShuffleAnimation() {
   }, 1000); // Animation duration + slight delay
 }
 
-function getRandomCardIndex() {
-  return Math.floor(Math.random() * deck.length);
-}
-
 function shuffleDeck() {
-  // Play the shuffle sound
-  shuffleSound.play();
-  
-  // Trigger animation
-  triggerShuffleAnimation();
-  
-  // Select a new random card (after a slight delay to match the animation)
-  setTimeout(() => {
-    randomIndex = getRandomCardIndex();
+  if (!silent) {     
+    shuffleSound.play();
+    // Only trigger animation when not silent
+    triggerShuffleAnimation();
+    
+    // Select a new random card after a slight delay to match the animation
+    setTimeout(() => {
+      randomIndex = Math.floor(Math.random() * deck.length);
+      randomImage = deck[randomIndex];
+      document.getElementById('randomImage').src = folderPath + randomImage;
+    }, 700); // Delay to match animation
+  } else {
+    // If silent, just update the card without animation or delay
+    randomIndex = Math.floor(Math.random() * deck.length);
     randomImage = deck[randomIndex];
     document.getElementById('randomImage').src = folderPath + randomImage;
-  }, 700); // Delay to match animation
+  }
 }
 
 function takeCard() {
+  takeSound.play();
+  
+  // Trigger the animation for take action
+  triggerShuffleAnimation();
+  
   if (deck.length === 0) {
     alert("No more cards in the deck!");
     return;
@@ -125,16 +135,11 @@ function takeCard() {
 
   // Save reference for discard logic
   lastTakenCard = cardTake;
-
-  // Play shuffle animation
-  triggerShuffleAnimation();
   
-  // After animation, select new card
-  setTimeout(() => {
-    randomIndex = getRandomCardIndex();
-    randomImage = deck[randomIndex];
-    document.getElementById('randomImage').src = folderPath + randomImage;
-  }, 700);
+  // Use silent flag to prevent duplicate animations/sounds
+  silent = true;
+  shuffleDeck(); // Pick a new random card
+  silent = false;
 }
 
 function resetDeck() {
@@ -149,46 +154,40 @@ function resetDeck() {
   const discardStack = document.getElementById('stack-discard');
   discardStack.innerHTML = ""; // Removes all <img> from the stack
 
-  // Add back the initial image
-  const initialImg = document.createElement('img');
-  initialImg.id = "image";
-  initialImg.src = folderPath + 'card-backside.png';
-  initialImg.style.width = "240px";
-  initialImg.classList.add('card-img');
-  discardStack.appendChild(initialImg);
-  
-  // No animation here - just update the card
-  randomIndex = getRandomCardIndex();
-  randomImage = deck[randomIndex];
-  document.getElementById('randomImage').src = folderPath + randomImage;
+  // No animation here - regular shuffle
+  shuffleDeck();
 }
 
-function discardCard(){
+function discardCard() {
+  discardSound.play();
   if (deck.length === 0) {
     alert("No cards in hand to discard!");
     return;
   }
-  if (deck.length == 1){
+  
+  if (deck.length == 1) {
     document.querySelector('.flip-card-front').style.display = 'none';
     document.querySelector('.flip-card-back').style.display = 'none';
   }
+  
   const discardedCard = deck[randomIndex];
   const index = deck.indexOf(discardedCard);
   if (index !== -1) {
     deck.splice(index, 1); // Remove the discarded card from the deck
   }
+  
   document.getElementById('discardedImage').src = folderPath + discardedCard; // Show back of card
   
-  // No animation here - just update the card
-  randomIndex = getRandomCardIndex();
-  randomImage = deck[randomIndex];
-  document.getElementById('randomImage').src = folderPath + randomImage;
+  // Use silent flag to prevent duplicate animations/sounds
+  silent = true;
+  shuffleDeck(); // Shuffle the deck after discarding
+  silent = false;
 }
 
 // Initialize the stack-discard div with the initial image if it's empty
 window.onload = function() {
   const discardStack = document.getElementById('stack-discard');
-  if (discardStack.children.length === 0) {
+  if (discardStack.children.length === 0 && !document.getElementById('image')) {
     const initialImg = document.createElement('img');
     initialImg.id = "image";
     initialImg.src = folderPath + 'card-backside.png';
